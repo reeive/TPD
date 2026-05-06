@@ -1,0 +1,14 @@
+# TPD defaults (aligned with ViT-B/16 VPT experiments)
+# anchor_lambda=0.0 is best on ImageNet-R (30k); use 0.1 on adversarial / long sequences.
+
+lr: 0.025
+r: 16
+W: 10
+B: 16
+K: 3
+rho_threshold: 1.0
+rollback_patience: 3
+beta_c: 0.25
+beta_n: 0.1
+kappa: 2.0
+anchor_lambda: 0.0

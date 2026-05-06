@@ -1,0 +1,46 @@
+# TTA Configuration for Koopman + HBUO Wrapper
+#
+# This config is loaded by run_tta.py and passed to TTAEngine.
+# All hyperparameters have sensible defaults based on the paper.
+
+# TTA protocol: "episodic" (reset per sample), "online" (accumulate),
+# or "mixed" (mixed corruption stream)
+protocol: "online"
+
+tta:
+  # ---- State representation ----
+  state:
+    type: "prompt"          # "prompt" (Option A) — prompt parameter projection
+    dim: 16                 # r: state dimensionality
+    projection: "pca"       # "pca" or "random"
+
+  # ---- C1: Koopman Spectral Controller ----
+  koopman:
+    window: 10              # W: sliding window size for EDMD
+    ridge_lambda: 0.01      # λ: ridge regularization for EDMD
+    rollback_patience: 3    # m: consecutive ρ>1 steps before rollback
+
+  # ---- C2: HBUO (Hankel-Balanced Update Operator) ----
+  hbuo:
+    num_perturbations: 5    # M: number of prompt perturbations for W_c
+    perturbation_scale: 0.01 # δP scale
+    update_freq: 10         # Re-estimate Gramians every N samples
+
+  # ---- Update control ----
+  update:
+    lr: 0.001               # η_0: base learning rate
+    steps_per_sample: 1     # K: inner update steps per test sample
+
+# ---- Model & Data (override via CLI) ----
+model:
+  type: "vit"
+  feature: "sup_vitb16_224"
+  checkpoint: ""            # Path to pre-trained VPT checkpoint
+
+data:
+  name: "imagenet-c"        # Dataset: imagenet-c, imagenet-r, imagenet-a
+  datapath: ""              # Path to dataset root
+  corruption: "gaussian_noise"  # Corruption type (for imagenet-c)
+  severity: 5               # Corruption severity (1-5)
+  batch_size: 64
+  num_workers: 4

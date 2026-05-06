@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.npz
+*.pt
+*.pth
+*.zip
+*.pdf
+*.log
+.DS_Store
+output/
+*~/
+.idea/
+.vscode/
+tta_vpt_results/

@@ -1,0 +1,20 @@
+# Default: ViT-B/16 supervised pretrain + VPT visual prompts (paper main setting)
+backbone: sup_vitb16_224
+prompt: vpt
+data_root: ./data
+model_root: ./checkpoints
+batch_size: 128
+num_workers: 4
+
+tpd:
+  lr: 0.025
+  r: 16
+  W: 10
+  B: 16
+  K: 3
+  rho_threshold: 1.0
+  rollback_patience: 3
+  beta_c: 0.25
+  beta_n: 0.1
+  kappa: 2.0
+  anchor_lambda: 0.0
