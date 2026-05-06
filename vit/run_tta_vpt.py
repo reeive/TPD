@@ -240,8 +240,8 @@ def parse_args():
 
     parser.add_argument("--output-dir", type=str, default="./tta_vpt_results")
     parser.add_argument("--engine", type=str, default="tpd",
-                        choices=["tpd", "paw"],
-                        help="Engine: 'paw' (proven TTAEngine) or 'tpd' (TPDTTAEngine)")
+                        choices=["tpd"],
+                        help="Engine: 'tpd' (TPDTTAEngine)")
     parser.add_argument("--tpd-config", type=str, default="",
                         help="Optional YAML path for paper-aligned TPD settings")
     parser.add_argument("--gpu", type=int, default=0)
@@ -660,7 +660,7 @@ def run_tta(args):
         "mean_drift": mean_drift,
         "num_rollbacks": num_rollbacks,
         "rollback_count": num_rollbacks,
-        "engine": "tpd" if use_tpd else "paw",
+        "engine": "tpd",
         "c1_mode": args.c1_mode,
         "state_dim": args.state_dim,
         "anchor_lambda": args.anchor_lambda,
